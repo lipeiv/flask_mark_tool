@@ -62,13 +62,13 @@
         <div class="col-md-3">
           <div id="sidebar" style="margin-top: 10px">
             
-            <div class="list-group">
-              <div class="list-group-item" v-for="(element, index) in mark_elements" >
+            <div class="list-group" v-if="current_image">
+              <div class="list-group-item" v-for="(mark, index) in current_image.marks" >
                 <select >
-                  <option v-for="option in object_categories" v-bind:value="option.id">{{option.name}}</option>
+                  <option v-for="option in mark_categories" v-bind:value="option.id">{{option.name}}</option>
                 </select>
-                <button type="button" v-on:click="toggleElement(element)" >{{ element.name }}</button>
-                <button type="button" v-on:click="removeElement(element, index)" >X</button>
+                <button type="button" v-on:click="toggleMark(mark)" >{{ mark.name }}</button>
+                <button type="button" v-on:click="removeMark(mark, index)" >X</button>
               </div>
 
             </div>
@@ -81,7 +81,7 @@
         <div class="col-md-12">
           <button class="btn btn-info">Prev</button>&nbsp;<button class="btn btn-info">Next</button>
           <div class="thumb_slider">
-            <img v-for="(src_url, index) in images" v-bind:src="src_url" class="img-thumbnail" v-bind:class="{ selected: src_url == current_image  }"  v-on:click="selectImage(src_url)" />  
+            <img v-for="(image_object, index) in images" v-bind:src="image_object.thumb_url" class="img-thumbnail" v-bind:class="{ selected: current_image && image_object.thumb_url == current_image.thumb_url  }"  v-on:click="selectImage(image_object)" />  
           </div>
           
         </div>  
@@ -96,6 +96,6 @@
     
     <script src="/static/vue.js"></script>
     <script src="/static/svg.js"></script>
-    <script src="/static/workspace.js?dd23wweewq"></script>
+    <script src="/static/workspace.js?1234567222"></script>
   </body>
 </html>
