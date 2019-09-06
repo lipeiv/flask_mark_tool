@@ -23,7 +23,8 @@ window.addEventListener("load", function(event) {
                         {id: 4, name: "Blueberry "}, 
                         {id: 5, name: "Banana"}, 
                         {id: 6, name: "Peach"}, 
-                        {id: 7, name: "Melon"}
+                        {id: 7, name: "Melon"},
+                        {id: 8, name: "Strawberry"}
                       ],
     current_image: null
   },
@@ -108,7 +109,7 @@ window.addEventListener("load", function(event) {
 
       box_group.add(drag_draw_element);
 
-      var text = _this.svg_draw.text(element_name).attr({x:drag_start_point.x, y:drag_start_point.y });
+      var text = _this.svg_draw.text(element_name).attr({x:drag_start_point.x, y:drag_start_point.y-24 });
       // text.font({anchor: 'middle', size: 30, family: 'Helvetica'});
       box_group.add(text);
 
@@ -148,6 +149,17 @@ window.addEventListener("load", function(event) {
     removeMark: function(mark, index) {
       mark.svg_element.remove();
       this.$delete(this.current_image.marks, index); 
+    },
+
+    selectMarkCategory: function(mark, event){
+        console.log("selectMarkCategory ", event.target.value, mark.name);
+        //console.log(mark.svg_element.get(1));
+        var c_id = event.target.value;
+        var c_object = this.mark_categories.find(function(category){
+           return category.id == c_id;
+        });
+        
+        mark.svg_element.get(1).text(c_object.name);
     },
 
     selectImage: function(image_object) {
