@@ -14,6 +14,20 @@
 
     <!-- Custom styles for this template -->
     <link href="/static/starter-template.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+       padding-top: 80px;
+      }
+      .thumb_slider .img-thumbnail { width: 100px; height: 100px; margin-right: 10px; cursor: pointer; }
+      .thumb_slider .img-thumbnail:hover { padding: 8px; }
+      .thumb_slider .img-thumbnail.selected { border: 1px solid red; }
+
+      .list-group-item:hover {
+        color: #555;
+        text-decoration: none;
+        background-color: #f5f5f5;
+      }
+    </style>
   </head>
 
   <body>
@@ -42,17 +56,36 @@
     <div id="app" class="container">
 
       <div class="row">
-        <div class="col-md-10"><div id="drawing"></div></div>
-        <div class="col-md-2">
+        <div class="col-md-9">
+          <div id="drawing"></div>
+        </div>
+        <div class="col-md-3">
           <div id="sidebar" style="margin-top: 10px">
             
             <div class="list-group">
-              <button type="button" class="list-group-item" v-for="element in mark_elements" v-on:click="toggleElement(element)" >{{ element.name }}</button>
+              <div class="list-group-item" v-for="(element, index) in mark_elements" >
+                <select >
+                  <option v-for="option in object_categories" v-bind:value="option.id">{{option.name}}</option>
+                </select>
+                <button type="button" v-on:click="toggleElement(element)" >{{ element.name }}</button>
+                <button type="button" v-on:click="removeElement(element, index)" >X</button>
+              </div>
+
             </div>
 
           </div><!-- /#sidebar -->
         </div>
-      </div>
+      </div><!-- /row -->
+
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-info">Prev</button>&nbsp;<button class="btn btn-info">Next</button>
+          <div class="thumb_slider">
+            <img v-for="(src_url, index) in images" v-bind:src="src_url" class="img-thumbnail" v-bind:class="{ selected: src_url == current_image  }"  v-on:click="selectImage(src_url)" />  
+          </div>
+          
+        </div>  
+      </div><!-- /row -->
 
     </div><!-- /.container -->
 
@@ -63,6 +96,6 @@
     
     <script src="/static/vue.js"></script>
     <script src="/static/svg.js"></script>
-    <script src="/static/workspace.js"></script>
+    <script src="/static/workspace.js?dd23wweewq"></script>
   </body>
 </html>
