@@ -66,7 +66,7 @@
             <div class="list-group" v-if="current_image">
               <div class="list-group-item" v-for="(mark, index) in current_image.marks" v-on:click="toggleMark(mark)" >
                 <select @change="selectMarkCategory(mark, $event)">
-                  <option v-for="option in mark_categories" v-bind:value="option.id">{{option.name}}</option>
+                  <option v-for="option in mark_categories" v-bind:value="option.id">{{ option.name }}</option>
                 </select>
                 <button type="button" v-on:click="removeMark(mark, index)" class="btn btn-danger btn-sm pull-right" >X</button>
               </div>
@@ -96,6 +96,6 @@
     
     <script src="/static/vue.js"></script>
     <script src="/static/svg.js"></script>
-    <script src="/static/workspace.js"></script>
+    <script src="/space"></script>
   </body>
 </html>

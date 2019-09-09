@@ -6,7 +6,7 @@ Demo App
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="{{url_for('.static', filename='starter-template.css')}}">
+<link rel="stylesheet" href="/static/starter-template.css">
 {% endblock %}
 
 {% block content %}
@@ -34,7 +34,7 @@ Demo App
     <div class="container">
       <div class="split left">
         <div class="images">
-          {% for i in value.split()[0:100]: %}
+          {% for i in value.split()[0:100]:%}
               <img src="{{i}}" alt="{{i}}">
           {% endfor %}
         </div>

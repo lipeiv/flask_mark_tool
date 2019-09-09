@@ -1,21 +1,20 @@
 window.addEventListener("load", function(event) {
   var vue_app = new Vue({
   el: '#app',
-    // delimiters:['[[', ']]'],
   data: {
     svg_draw: null,
     svg_bg_image: null,
     images: [
-              {thumb_url:'/static/images/0.jpg', url:'/static/images/0.jpg', marks: []},
-              {thumb_url:'/static/images/1.jpg', url:'/static/images/1.jpg', marks: []},
-              {thumb_url:'/static/images/2.jpg', url:'/static/images/2.jpg', marks: []},
-              {thumb_url:'/static/images/3.jpg', url:'/static/images/3.jpg', marks: []},
-              {thumb_url:'/static/images/4.jpg', url:'/static/images/4.jpg', marks: []},
-              {thumb_url:'/static/images/5.jpg', url:'/static/images/5.jpg', marks: []},
-              {thumb_url:'/static/images/6.jpg', url:'/static/images/6.jpg', marks: []},
-              {thumb_url:'/static/images/7.jpg', url:'/static/images/7.jpg', marks: []},
-              {thumb_url:'/static/images/8.jpg', url:'/static/images/8.jpg', marks: []},
-              {thumb_url:'/static/images/9.jpg', url:'/static/images/9.jpg', marks: []}
+              {thumb_url:'/img/0', url:'/img/0', marks: []},
+              {thumb_url:'/img/1', url:'/img/1', marks: []},
+              {thumb_url:'/img/2', url:'/img/2', marks: []},
+              {thumb_url:'/img/3', url:'/img/3', marks: []},
+              {thumb_url:'/img/4', url:'/img/4', marks: []},
+              {thumb_url:'/img/5', url:'/img/5', marks: []},
+              {thumb_url:'/img/6', url:'/img/6', marks: []},
+              {thumb_url:'/img/7', url:'/img/7', marks: []},
+              {thumb_url:'/img/8', url:'/img/8', marks: []},
+              {thumb_url:'/img/9', url:'/img/9', marks: []}
             ],
     mark_categories: [
                         {id: 1, name: "Apple"}, 
