@@ -33,6 +33,10 @@ def dashboard():
 
 @app.route('/work')
 def workspace():
+    img_dir = os.listdir('static/images')
+    img_dir.reverse()
+    with open("path_str.txt", "w") as f:
+        f.writelines([path + "\n" for path in img_dir])
     return render_template('workspace.html')
 
 
@@ -43,11 +47,14 @@ def space():
 
 @app.route('/img/<img_id>')
 def space1(img_id):
-    img_dir = os.listdir('static/images')
-    img_dir.reverse()
 
-    with open("static/images/" + img_dir[int(img_id)], "rb") as f:
-        picture = f.read()
+    with open("path_str.txt", "r") as f:
+        pic_list = f.readlines()
+
+    for i in pic_list:
+        i = i.replace('\n', '')
+        with open("static/images/" + str(i), 'rb') as f:
+            picture = f.read()
 
     return picture
 
