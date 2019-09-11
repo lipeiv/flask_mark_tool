@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -65,10 +65,10 @@
             <h3>标签</h3>
             <div class="list-group" v-if="current_image">
               <div class="list-group-item" v-for="(mark, index) in current_image.marks" v-on:click="toggleMark(mark)" >
-                <select @change="selectMarkCategory(mark, $event)">
+                <select @change="selectMarkCategory(current_image, mark, $event)">
                   <option v-for="option in mark_categories" v-bind:value="option.id">{{ option.name }}</option>
                 </select>
-                <button type="button" v-on:click="removeMark(mark, index)" class="btn btn-danger btn-sm pull-right" >X</button>
+                <button type="button" v-on:click="removeMark(current_image, mark, index)" class="btn btn-danger btn-sm pull-right" >X</button>
               </div>
 
             </div>
@@ -79,7 +79,9 @@
 
       <div class="row">
         <div class="col-md-12">
-          <button class="btn btn-info">Prev</button>&nbsp;<button class="btn btn-info">Next</button>
+            <button class="btn btn-info" onClick="document.location.reload()">Prev</button>&nbsp;
+            <button class="btn btn-info" onClick="document.location.reload()">Next</button>
+
           <div class="thumb_slider">
             <img v-for="(image_object, index) in images" v-bind:src="image_object.thumb_url" class="img-thumbnail" v-bind:class="{ selected: current_image && image_object.thumb_url == current_image.thumb_url  }"  v-on:click="selectImage(image_object)" />  
           </div>
@@ -96,6 +98,8 @@
     
     <script src="/static/vue.js"></script>
     <script src="/static/svg.js"></script>
+    <script src="/static/axios.min.js"></script>
     <script src="/space"></script>
+
   </body>
 </html>
