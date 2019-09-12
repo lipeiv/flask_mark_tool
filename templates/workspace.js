@@ -1,4 +1,5 @@
 window.addEventListener("load", function(event) {
+console.log("Hellojhjghjkhgjkgh")
 
   var vue_app = new Vue({
   el: '#app',
@@ -20,16 +21,16 @@ window.addEventListener("load", function(event) {
                       ],
     images:[
 //{name: category_name, svg_element: box_group, selected: false, points: points_4, category_id: category_id }
-              {thumb_url:'/{[ img_id0 ]}', url:'/{[ img_id0 ]}', marks: [ {[ mark1 ]} ]},
-              {thumb_url:'/{[ img_id1 ]}', url:'/{[ img_id1 ]}', marks: [ {[ mark1 ]} ]},
-              {thumb_url:'/{[ img_id2 ]}', url:'/{[ img_id2 ]}', marks: [ {[ mark1 ]} ]},
-              {thumb_url:'/{[ img_id3 ]}', url:'/{[ img_id3 ]}', marks: [ {[ mark1 ]} ]},
-              {thumb_url:'/{[ img_id4 ]}', url:'/{[ img_id4 ]}', marks: [ {[ mark1 ]} ]},
-              {thumb_url:'/{[ img_id5 ]}', url:'/{[ img_id5 ]}', marks: [ {[ mark1 ]} ]},
-              {thumb_url:'/{[ img_id6 ]}', url:'/{[ img_id6 ]}', marks: [ {[ mark1 ]} ]},
-              {thumb_url:'/{[ img_id7 ]}', url:'/{[ img_id7 ]}', marks: [ {[ mark1 ]} ]},
-              {thumb_url:'/{[ img_id8 ]}', url:'/{[ img_id8 ]}', marks: [ {[ mark1 ]} ]},
-              {thumb_url:'/{[ img_id9 ]}', url:'/{[ img_id9 ]}', marks: [ {[ mark1 ]} ]}
+              {thumb_url:'/{[ img_id0 ]}', url:'/{[ img_id0 ]}', marks: [ ]},
+              {thumb_url:'/{[ img_id1 ]}', url:'/{[ img_id1 ]}', marks: [ ]},
+              {thumb_url:'/{[ img_id2 ]}', url:'/{[ img_id2 ]}', marks: [ ]},
+              {thumb_url:'/{[ img_id3 ]}', url:'/{[ img_id3 ]}', marks: [ ]},
+              {thumb_url:'/{[ img_id4 ]}', url:'/{[ img_id4 ]}', marks: [ ]},
+              {thumb_url:'/{[ img_id5 ]}', url:'/{[ img_id5 ]}', marks: [ ]},
+              {thumb_url:'/{[ img_id6 ]}', url:'/{[ img_id6 ]}', marks: [ ]},
+              {thumb_url:'/{[ img_id7 ]}', url:'/{[ img_id7 ]}', marks: [ ]},
+              {thumb_url:'/{[ img_id8 ]}', url:'/{[ img_id8 ]}', marks: [ ]},
+              {thumb_url:'/{[ img_id9 ]}', url:'/{[ img_id9 ]}', marks: [ ]}
     ],
 
     current_image: null
@@ -45,7 +46,7 @@ window.addEventListener("load", function(event) {
     var drag_new_rect = false;
     var mouse_draged = false;
     this.svg_draw = SVG().addTo('#drawing').size(900, 500);
-    this.svg_bg_image = this.svg_draw.image(_this.images[0]);
+    this.svg_bg_image = this.svg_draw.image(_this.images[0].url);
 
     this.svg_draw.mousedown(function(e) {
       var point = {x: e.offsetX, y: e.offsetY};
@@ -104,28 +105,35 @@ window.addEventListener("load", function(event) {
         }
         return;
       }
-
       drag_start = false;
 
+
+
+      // 生成标签
       var category_name = _this.mark_categories[0].name;
       var category_id = _this.mark_categories[0].id;
-
-
+      var points_4 = [[drag_start_point.x,drag_start_point.y], [point.x,drag_start_point.y], [point.x,point.y], [drag_start_point.x, point.y]];
+      var text = _this.svg_draw.text(category_name).attr({x:drag_start_point.x, y:drag_start_point.y-24 });
       var box_group = _this.svg_draw.group();
-
       drag_draw_element.mouseover(function(e){
         console.log("mouse hover on element.");
       });
-
       box_group.add(drag_draw_element);
-      var points_4 = [[drag_start_point.x,drag_start_point.y], [point.x,drag_start_point.y], [point.x,point.y], [drag_start_point.x, point.y]];
-      var text = _this.svg_draw.text(category_name).attr({x:drag_start_point.x, y:drag_start_point.y-24 });
-      // text.font({anchor: 'middle', size: 30, family: 'Helvetica'});
-
       box_group.add(text);
-
       _this.current_image.marks.push({name: category_name, svg_element: box_group, selected: false, points: points_4, category_id: category_id });
       drag_draw_element = null;
+
+
+        function make_mark(id, point) {
+        var category_name = _this.mark_categories[id].name;
+        var category_id = _this.mark_categories[id].id;
+        var text = _this.svg_draw.text((category_id).attr({x:point}))
+        var box_group = _this.svg_draw.group()
+        box_group.add(text)
+          _this.current_image.marks.push({name:category_name, svg_element: box_group, selected: false, points:point})
+        }
+
+
 
     });
 
@@ -133,10 +141,30 @@ window.addEventListener("load", function(event) {
       this.selectImage(this.images[0]);
     }
 
-  },
+
+    function load(name) {
+        let xhr = new XMLHttpRequest(),
+            okStatus = document.location.protocol === "file:" ? 0 : 200;
+                xhr.open('GET', name, false);
+                xhr.overrideMimeType("text/html;charset=utf-8");//默认为utf-8
+                xhr.send(null);
+                return xhr.status === okStatus ? xhr.responseText : null;
+            }
+
+            let text = load("static/text/0.txt");
+            console.log(text);
+
+            },
+
+
 
   methods: {
-    // 绘图
+        show_marks: function(){
+          console.log(this.images)
+        },
+
+
+    // 选择标签
     toggleMark: function(selectedMark){
       var element_rect = selectedMark.svg_element.get(0);
       if(selectedMark.selected) {
@@ -223,7 +251,8 @@ window.addEventListener("load", function(event) {
         }
         
         this.current_image = image_object;
-        this.svg_bg_image.load(image_object.url);  
+        this.svg_bg_image.load(image_object.url);
+        this.svg_bg_image.size(900, 500);
       } else {
         console.log("Same image, not load again.");
       }
