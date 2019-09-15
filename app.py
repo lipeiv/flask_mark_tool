@@ -10,7 +10,12 @@ Bootstrap(app)
 app.jinja_env.variable_start_string = '{['
 app.jinja_env.variable_end_string = ']}'
 
-img_dir = os.listdir('static/images')
+
+# img_dir = os.listdir('/Users/lipeiv/coco/images/novotech2019')
+# txt_dir = os.listdir('/Users/lipeiv/coco/labels/novotech2019')
+
+img_dir = os.listdir(os.getcwd()+"/static/images")
+
 with open("img_path.txt", "w")as f:
     f.writelines(i + "\n" for i in img_dir)
 
@@ -151,8 +156,18 @@ def space():
     img_dir9 = 'static/images/' + linecache.getline("img_path.txt", 10 + page*10).replace("\n", "")
     page += 1
     arr = []
+    arr0 = []
 
-    # arr.append()
+
+    # 根据txt内的值计算points
+    txt0 = img_dir0.replace("images", "text").replace("jpg", "txt")
+    with open(txt0, 'r') as f:
+        text = f.readlines()
+        for i in text:
+            j = i.split(" ")
+            print(j)
+
+
 
 
     # 渲染图片路径与标签
