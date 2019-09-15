@@ -11,3 +11,5 @@
 	
 	# https://cn.vuejs.org/v2/guide/installation.html
 	wget https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js
+
+	pip install pillow

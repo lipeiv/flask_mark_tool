@@ -59,7 +59,7 @@
       <div class="row">
         <div class="col-md-9">
           <div id="drawing"></div>
-            <p v-on:click="show_marks">log<br> </p>
+
         </div>
         <div class="col-md-3">
           <div id="sidebar" style="margin-top: 10px">
@@ -67,7 +67,7 @@
             <div class="list-group" v-if="current_image">
               <div class="list-group-item" v-for="(mark, index) in current_image.marks" v-on:click="toggleMark(mark)" >
                 <select @change="selectMarkCategory(current_image, mark, $event)">
-                  <option v-for="option in mark_categories" v-bind:value="option.id">{{ option.name }}</option>
+                  <option v-for="option in mark_categories" v-bind:value="option.id"  :selected="option.id==mark.category_id" >{{ option.name }}</option>
                 </select>
                 <button type="button" v-on:click="removeMark(current_image, mark, index)" class="btn btn-danger btn-sm pull-right" >X</button>
               </div>
@@ -80,8 +80,8 @@
 
       <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-info" onClick="document.location.reload()">Prev</button>&nbsp;
-            <button class="btn btn-info" onClick="document.location.reload()">Next</button>
+            <button class="btn btn-info" onClick="window.location.replace('http://127.0.0.1:5000/work')">Prev</button>&nbsp;
+            <button class="btn btn-info" onClick="document.location.replace('http://127.0.0.1:5000/work')">Next</button>
 
           <div class="thumb_slider">
             <img v-for="(image_object, index) in images" v-bind:src="image_object.thumb_url" class="img-thumbnail" v-bind:class="{ selected: current_image && image_object.thumb_url == current_image.thumb_url  }"  v-on:click="selectImage(image_object)" />  
